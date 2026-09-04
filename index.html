@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project X — The Living Ecosystem Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #070908;
+      --bg-surface: #0e1310;
+      --bg-card: #141b17;
+      --accent-emerald: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2923;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 9, 8, 0.85);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 1.1rem;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent-emerald);
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero {
+      max-width: 900px;
+      margin: 80px auto 60px;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-emerald);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #a3b899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .interactive-section {
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent-emerald);
+    }
+
+    button.primary-btn {
+      background: var(--accent-emerald);
+      color: #05140d;
+      font-weight: 600;
+      border: none;
+      padding: 0 28px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    button.primary-btn:hover {
+      opacity: 0.9;
+    }
+
+    button.primary-btn:active {
+      transform: scale(0.98);
+    }
+
+    .query-result {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      display: none;
+    }
+
+    .query-result.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .media-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      transition: transform 0.2s;
+    }
+
+    .media-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .media-preview {
+      height: 180px;
+      background: #17241c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .media-body {
+      padding: 20px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent-emerald);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-dot"></div>
+      PROJECT X EXPERIENCE
+    </div>
+    <div class="status-pill">
+      <span>●</span> Background Sync Active
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge">Discovery Engine Active</div>
+      <h1>Explore Nature Through Verified Intelligence</h1>
+      <p>An autonomous, living ecosystem bridging genuine biological knowledge with cinematic observation.</p>
+    </section>
+
+    <section class="interactive-section">
+      <div class="card">
+        <h2 style="font-size: 1.3rem; margin-bottom: 8px;">Interactive Knowledge Agent</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Ask a question or enter a species to explore the verified knowledge graph:</p>
+        <div class="search-box">
+          <input type="text" id="knowledgeInput" placeholder="Try: Living Root Bridges, Ficus elastica, or Monsoon Wildlife..." value="Living Root Bridges of Meghalaya">
+          <button class="primary-btn" onclick="runKnowledgeQuery()">Synthesize</button>
+        </div>
+
+        <div id="resultBox" class="query-result active">
+          <div style="font-size: 0.75rem; color: var(--accent-emerald); margin-bottom: 6px; font-weight: 600;">CANONICAL KNOWLEDGE • VERIFIED EVIDENCE</div>
+          <h3 id="resultTitle" style="font-size: 1.1rem; margin-bottom: 8px;">Living Root Bridges (Jingkieng Jri)</h3>
+          <p id="resultText" style="color: var(--text-muted); font-size: 0.9rem;">
+            Biological aerial root architecture developed using living Ficus elastica trees across Khasi and Jaintia Hills. They demonstrate functional biomimicry and intergenerational engineering, growing stronger over centuries rather than decaying.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="interactive-section">
+      <h2 style="font-size: 1.3rem; margin-bottom: 16px;">Curated Media & Story Vault</h2>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-preview">
+            <span style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">🎬 Cinematic Mystery Teaser (50s)</span>
+          </div>
+          <div class="media-body">
+            <h4 style="font-size: 1rem; margin-bottom: 6px;">Something is Coming</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Atmospheric 9:16 vertical experience showcasing the untouched scale of ancient canopies and wild torrents.</p>
+            <div class="tags">
+              <span class="tag">#Cinematic</span>
+              <span class="tag">#Shorts</span>
+              <span class="tag">#Earth</span>
+              <span class="tag">#Mystery</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-item">
+          <div class="media-preview">
+            <span style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">🌿 Bio-Engineering Feature</span>
+          </div>
+          <div class="media-body">
+            <h4 style="font-size: 1rem; margin-bottom: 6px;">Meghalaya Root Architecture</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Granular study of botanical hydraulics, soil preservation, and Khasi conservation traditions.</p>
+            <div class="tags">
+              <span class="tag">#Biomimicry</span>
+              <span class="tag">#Botany</span>
+              <span class="tag">#Ecology</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function runKnowledgeQuery() {
+      const input = document.getElementById('knowledgeInput').value;
+      const title = document.getElementById('resultTitle');
+      const text = document.getElementById('resultText');
+      const box = document.getElementById('resultBox');
+
+      title.innerText = input;
+      text.innerText = "Processing verified evidence claims for \"" + input + "\" across canonical knowledge sources. Synthesizing biological facts, habitat dynamics, and ecological principles...";
+      box.classList.add('active');
+    }
+  </script>
+</body>
+</html>
