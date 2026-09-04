@@ -1,274 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project X — Executive Cockpit & Telemetry (/admin)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --canvas: #FBFBF9;
-      --surface: #FFFFFF;
-      --surface-secondary: #F5F4F0;
-      --border-subtle: #EAE8E1;
-      --border-focus: #2D5A43;
-      --ink-primary: #191C1A;
-      --ink-muted: #5E655F;
-      --ink-subtle: #8C948E;
-      --nature: #2D5A43;
-      --nature-hover: #244835;
-      --nature-soft: #EDF4EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--canvas);
-      color: var(--ink-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.5;
-      min-height: 100vh;
-      display: flex;
-    }
-    .serif { font-family: 'Newsreader', Georgia, serif; }
-    .sidebar {
-      width: 260px;
-      background: var(--surface);
-      border-right: 1px solid var(--border-subtle);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      shrink-0: 0;
-    }
-    .brand-mark {
-      width: 26px; height: 26px;
-      border: 1px solid var(--border-subtle);
-      border-radius: 6px; display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 600; background: var(--canvas);
-    }
-    .nav-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 500;
-      color: var(--ink-muted); text-decoration: none; transition: all 0.15s ease;
-      margin-bottom: 4px;
-    }
-    .nav-item.active { background: var(--nature-soft); color: var(--nature); }
-    .nav-item:hover:not(.active) { background: var(--surface-secondary); color: var(--ink-primary); }
-    .main-viewport { flex: 1; overflow-y: auto; }
-    .topbar {
-      height: 64px; border-bottom: 1px solid var(--border-subtle);
-      background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(16px);
-      padding: 0 32px; display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 20;
-    }
-    .content-area { padding: 32px; max-width: 1100px; margin: 0 auto; }
-    .card {
-      background: var(--surface); border: 1px solid var(--border-subtle);
-      border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(25, 28, 26, 0.04);
-      margin-bottom: 24px;
-    }
-    .score-card {
-      background: var(--surface); border: 1px solid var(--border-subtle);
-      border-radius: 14px; padding: 20px; cursor: pointer; transition: all 0.15s ease;
-    }
-    .score-card:hover {
-      border-color: var(--border-focus); transform: translateY(-2px);
-      box-shadow: 0 4px 16px -2px rgba(25, 28, 26, 0.05);
-    }
-    .score-val { font-size: 32px; font-weight: 300; margin: 8px 0 4px; }
-    .btn-action {
-      padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 500;
-      background: var(--nature); color: #FFF; border: none; cursor: pointer;
-      transition: background 0.15s ease;
-    }
-    .btn-action:hover { background: var(--nature-hover); }
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(25, 28, 26, 0.4);
-      backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center;
-      z-index: 50; padding: 20px;
-    }
-    .modal-box {
-      background: var(--surface); border: 1px solid var(--border-subtle);
-      border-radius: 16px; padding: 32px; max-width: 520px; width: 100%;
-      box-shadow: 0 8px 32px rgba(25, 28, 26, 0.08);
-    }
-    @media (max-width: 800px) {
-      body { flex-direction: column; }
-      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); }
-    }
-  </style>
-</head>
-<body>
 
-  <aside class="sidebar">
-    <div>
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 32px;">
-        <div class="brand-mark">X</div>
-        <div>
-          <div style="font-size: 13px; font-weight: 600; color: var(--ink-primary);">Project X</div>
-          <div style="font-size: 10px; color: var(--nature); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;">/admin console</div>
-        </div>
-      </div>
 
-      <nav>
-        <a href="#" class="nav-item active"><span>📊</span> Health Telemetry</a>
-        <a href="#" class="nav-item"><span>🤖</span> AI Agent Fleet</a>
-        <a href="#" class="nav-item"><span>👥</span> Role Approvals</a>
-        <a href="#" class="nav-item"><span>⚖️</span> Statutory 80G</a>
-        <a href="/" class="nav-item" style="margin-top: 16px; border-top: 1px solid var(--border-subtle); padding-top: 16px;"><span>←</span> Public Website</a>
-      </nav>
-    </div>
+X
+Project X
+/admin console
+📊 Health Telemetry 🤖 AI Agent Fleet 👥 Role Approvals ⚖️ Statutory 80G ← Public Website
 
-    <div style="padding-top: 16px; border-top: 1px solid var(--border-subtle); font-size: 12px;">
-      <div style="font-weight: 500; color: var(--ink-primary);">Ken (Founder)</div>
-      <div style="font-size: 10px; color: var(--ink-subtle);">ROOT_ADMIN · Hyderabad</div>
-    </div>
-  </aside>
+Ken (Founder)
+ROOT_ADMIN · Hyderabad
 
-  <main class="main-viewport">
-    <div class="topbar">
-      <div style="font-size: 12px; color: var(--nature); font-weight: 500;">
-        🌱 Nature, Animals & Life First · Technology in Service of Biology
-      </div>
-      <div style="font-size: 11px; color: var(--ink-subtle);">
-        System Status: <strong style="color: var(--nature);">100% Operational</strong>
-      </div>
-    </div>
+🌱 Nature, Animals & Life First · Technology in Service of Biology
+System Status: 100% Operational
 
-    <div class="content-area">
-      <div>
-        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-subtle); margin-bottom: 12px;">
-          Institutional Telemetry Suite · Click any card for diagnostics
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px;">
-          
-          <div class="score-card" onclick="openModal('company')">
-            <div style="font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">Company & Ecosystem</div>
-            <div class="score-val serif" style="color: var(--ink-primary);">96.4%</div>
-            <div style="font-size: 11px; color: var(--nature); font-weight: 500;">Reserve & Merchant Trust ↗</div>
-          </div>
+Institutional Telemetry Suite · Click any card for diagnostics
 
-          <div class="score-card" onclick="openModal('ai')">
-            <div style="font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">AI Fleet Health</div>
-            <div class="score-val serif" style="color: var(--ink-primary);">98.8%</div>
-            <div style="font-size: 11px; color: var(--nature); font-weight: 500;">W1–W9 Zero Hallucination ↗</div>
-          </div>
 
-          <div class="score-card" onclick="openModal('eco')">
-            <div style="font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">Ecological Life Index</div>
-            <div class="score-val serif" style="color: var(--ink-primary);">94.2%</div>
-            <div style="font-size: 11px; color: var(--nature); font-weight: 500;">Hospital & Rescue Fleet Active ↗</div>
-          </div>
+Company & Ecosystem
+96.4%
+Reserve & Merchant Trust ↗
 
-          <div class="score-card" onclick="openModal('legal')">
-            <div style="font-size: 11px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">Statutory 80G Matrix</div>
-            <div class="score-val serif" style="color: var(--ink-primary);">100%</div>
-            <div style="font-size: 11px; color: var(--nature); font-weight: 500;">Section 8(1) / 92 Verified ↗</div>
-          </div>
+AI Fleet Health
+98.8%
+W1–W9 Zero Hallucination ↗
 
-        </div>
-      </div>
+Ecological Life Index
+94.2%
+Hospital & Rescue Fleet Active ↗
 
-      <div class="card">
-        <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">Active Autonomous AI Agents</h3>
-        <p style="font-size: 12px; color: var(--ink-muted); margin-bottom: 20px;">Monitoring background data ingestion, digital twins, and pre-retrieval isolation.</p>
+Statutory 80G Matrix
+100%
+Section 8(1) / 92 Verified ↗
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
-          <div style="padding: 14px; background: var(--canvas); border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <div style="font-size: 12px; font-weight: 500;">Agent 1: Nature Data Ingestion (W1–W3)</div>
-              <div style="font-size: 11px; color: var(--ink-subtle);">AKC, CFA & Reef data pipeline</div>
-            </div>
-            <span style="font-size: 11px; color: var(--nature); font-weight: 600;">99.4% UPTIME</span>
-          </div>
+Active Autonomous AI Agents
+Monitoring background data ingestion, digital twins, and pre-retrieval isolation.
 
-          <div style="padding: 14px; background: var(--canvas); border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <div style="font-size: 12px; font-weight: 500;">Agent 2: Living Habitat Digital Twin</div>
-              <div style="font-size: 11px; color: var(--ink-subtle);">Pets, Gardens & Aquariums (CSD-031)</div>
-            </div>
-            <span style="font-size: 11px; color: var(--nature); font-weight: 600;">100% ISOLATED</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <div>
-            <h3 style="font-size: 14px; font-weight: 600;">Role Verification & Approvals Queue</h3>
-            <p style="font-size: 12px; color: var(--ink-muted);">Review candidates for Staff clearance, Merchant storefronts, and Rescue volunteers.</p>
-          </div>
-          <span style="font-size: 11px; color: var(--nature); font-weight: 500; background: var(--nature-soft); padding: 4px 10px; border-radius: 9999px;">3 Pending</span>
-        </div>
+Agent 1: Nature Data Ingestion (W1–W3)
+AKC, CFA & Reef data pipeline
+99.4% UPTIME
 
-        <div style="space-y: 12px;">
-          <div id="row-1" style="padding: 14px; border: 1px solid var(--border-subtle); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div>
-              <div style="font-size: 13px; font-weight: 500;">Dr. Priya Sharma <span style="font-size: 11px; color: var(--nature); font-weight: 400;">· Wildlife Emergency Surgeon</span></div>
-              <div style="font-size: 11px; color: var(--ink-muted);">Submitted: Veterinary Council ID, trauma experience, Section 8 hospital scope.</div>
-            </div>
-            <button class="btn-action" onclick="approve('row-1', 'Dr. Priya Sharma', 'Wildlife Surgeon Clearance')">Approve Clearance</button>
-          </div>
+Agent 2: Living Habitat Digital Twin
+Pets, Gardens & Aquariums (CSD-031)
+100% ISOLATED
 
-          <div id="row-2" style="padding: 14px; border: 1px solid var(--border-subtle); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div>
-              <div style="font-size: 13px; font-weight: 500;">Deccan Marine & Reef Exotics <span style="font-size: 11px; color: var(--ink-muted); font-weight: 400;">· Merchant Storefront</span></div>
-              <div style="font-size: 11px; color: var(--ink-muted);">Submitted: Hyderabad GSTIN, captive-bred coral catalog, Banjara Hills outlet.</div>
-            </div>
-            <button class="btn-action" onclick="approve('row-2', 'Deccan Marine', 'Storefront Approval')">Approve Merchant</button>
-          </div>
 
-          <div id="row-3" style="padding: 14px; border: 1px solid var(--border-subtle); border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <div style="font-size: 13px; font-weight: 500;">Rajesh Varma <span style="font-size: 11px; color: var(--ink-muted); font-weight: 400;">· Monsoon Rescue Van Volunteer</span></div>
-              <div style="font-size: 11px; color: var(--ink-muted);">Submitted: Secunderabad zone driver license, animal first-aid certification.</div>
-            </div>
-            <button class="btn-action" onclick="approve('row-3', 'Rajesh Varma', 'Rescue Field Clearance')">Approve Volunteer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+Role Verification & Approvals Queue
+Review candidates for Staff clearance, Merchant storefronts, and Rescue volunteers.
+3 Pending
 
-  <div id="diag-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-        <div>
-          <div style="font-size: 10px; text-transform: uppercase; color: var(--nature); font-weight: 600; letter-spacing: 0.06em;">Diagnostic Breakdown</div>
-          <h3 id="modal-title" class="serif" style="font-size: 22px; font-weight: 400;">Score Telemetry</h3>
-        </div>
-        <button onclick="closeModal()" style="border: none; background: none; font-size: 18px; cursor: pointer; color: var(--ink-subtle);">✕</button>
-      </div>
-      <div id="modal-content" style="font-size: 13px; color: var(--ink-muted); line-height: 1.6; space-y: 8px;"></div>
-      <button class="btn-action" onclick="closeModal()" style="margin-top: 24px; width: 100%;">Close Diagnostics</button>
-    </div>
-  </div>
+Dr. Priya Sharma · Wildlife Emergency Surgeon
+Submitted: Veterinary Council ID, trauma experience, Section 8 hospital scope.
+Approve Clearance
 
-  <script>
-    const telemetryData = {
-      company: "• Pvt Ltd Operating Reserves: 18-month runway verified<br>• Section 8 Philanthropic Trust Capital: Emergency Hospital Funded<br>• Active Citizen Digital Twins: Daily bio-logs expanding<br>• Store Merchant Network Health: Zero settlement friction",
-      ai: "• W1–W3 Web Ingestion Throughput: 1,420+ species cataloged<br>• Knowledge Graph Vector Query Latency: 42ms (Target <50ms)<br>• Fact-Checked Synthesis: 99.8% Zero-Hallucination score<br>• CSD-031 Home Vector Isolation: 100% pre-retrieval boundary sealed",
-      eco: "• 24/7 Wildlife Hospital Recovery Rate: 92.6% (18 active trauma cases)<br>• Monsoon Rescue Van Response Time: <16 mins in Hyderabad<br>• 500-Year Root Sanctuary Tensile Health: Biological inosculation on track<br>• Native Wildlife Protection: Telangana illegal trade prevention active",
-      legal: "• Section 8(1) Non-Distribution Covenant: 100% compliant<br>• Section 92 Transfer Pricing Arm's Length: CA conformity verified<br>• Section 80G Form 10BE Automated Receipts: Active<br>• DPDPA 2023 Citizen Privacy Compliance: Enforced"
-    };
+Deccan Marine & Reef Exotics · Merchant Storefront
+Submitted: Hyderabad GSTIN, captive-bred coral catalog, Banjara Hills outlet.
+Approve Merchant
 
-    function openModal(key) {
-      document.getElementById('modal-content').innerHTML = telemetryData[key];
-      document.getElementById('diag-modal').style.display = 'flex';
-    }
+Rajesh Varma · Monsoon Rescue Van Volunteer
+Submitted: Secunderabad zone driver license, animal first-aid certification.
+Approve Volunteer
 
-    function closeModal() {
-      document.getElementById('diag-modal').style.display = 'none';
-    }
 
-    function approve(rowId, name, role) {
-      document.getElementById(rowId).innerHTML = `
-        <div style="font-size: 12px; color: var(--nature); font-weight: 500;">
-          ✓ Approved: ${name} has been granted ${role}. Profile unlocked under single Google identity.
-        </div>
-      `;
-    }
-  </script>
-</body>
-</html>
+
+Diagnostic Breakdown
+Score Telemetry
+✕
+Close Diagnostics
