@@ -1,324 +1,732 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project X — The Living Ecosystem Experience</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROJECT X — Dual-Entity Ecosystem & Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-primary: #070908;
-      --bg-surface: #0e1310;
-      --bg-card: #141b17;
-      --accent-emerald: #10b981;
-      --accent-glow: rgba(16, 185, 129, 0.15);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --border-subtle: #1f2923;
+      --bg-base: #07090e;
+      --bg-surface: #0e131f;
+      --bg-card: rgba(18, 24, 38, 0.7);
+      --bg-card-hover: rgba(26, 35, 54, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(16, 185, 129, 0.35);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --emerald-glow: rgba(16, 185, 129, 0.15);
+      --emerald-accent: #10b981;
+      --emerald-dark: #065f46;
+      --sapphire-accent: #3b82f6;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-main);
       line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow {
+      position: fixed;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 { top: -100px; left: 10%; background: var(--emerald-accent); }
+    .glow-2 { top: 40%; right: -150px; background: var(--sapphire-accent); }
+
+    .app-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
     }
 
     header {
-      padding: 24px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 28px 0;
       border-bottom: 1px solid var(--border-subtle);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(7, 9, 8, 0.85);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      font-size: 1.1rem;
+      gap: 14px;
+      text-decoration: none;
     }
 
-    .brand-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--accent-emerald);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent-emerald);
+    .brand-logo {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #10b981 0%, #064e3b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 18px;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+    }
+
+    .brand-badge {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      margin-left: 8px;
     }
 
     .status-pill {
-      font-size: 0.75rem;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      color: var(--accent-emerald);
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 6px 14px;
+      border-radius: 9999px;
+    }
+
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background-color: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     .hero {
-      max-width: 900px;
-      margin: 80px auto 60px;
+      padding: 72px 0 48px;
       text-align: center;
-      padding: 0 24px;
+      max-width: 920px;
+      margin: 0 auto;
     }
 
-    .hero-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent-emerald);
-      margin-bottom: 16px;
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--emerald-accent);
+      background: rgba(16, 185, 129, 0.08);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      margin-bottom: 24px;
     }
 
     .hero h1 {
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 52px;
       line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       margin-bottom: 20px;
-      background: linear-gradient(180deg, #ffffff 0%, #a3b899 100%);
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 650px;
-      margin: 0 auto;
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 36px;
     }
 
-    .interactive-section {
-      max-width: 1000px;
-      margin: 0 auto 60px;
-      padding: 0 24px;
-    }
-
-    .card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      position: relative;
-    }
-
-    .search-box {
+    .hero-features {
       display: flex;
-      gap: 12px;
-      margin-top: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
     }
 
-    input[type="text"] {
-      flex: 1;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      padding: 14px 20px;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--accent-emerald);
-    }
-
-    button.primary-btn {
-      background: var(--accent-emerald);
-      color: #05140d;
-      font-weight: 600;
-      border: none;
-      padding: 0 28px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
-    }
-
-    button.primary-btn:hover {
-      opacity: 0.9;
-    }
-
-    button.primary-btn:active {
-      transform: scale(0.98);
-    }
-
-    .query-result {
-      margin-top: 24px;
-      padding: 20px;
-      border-radius: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      display: none;
-    }
-
-    .query-result.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
-    }
-
-    .media-item {
-      background: var(--bg-card);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      transition: transform 0.2s;
-    }
-
-    .media-item:hover {
-      transform: translateY(-4px);
-    }
-
-    .media-preview {
-      height: 180px;
-      background: #17241c;
+    .feature-pill {
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
     }
 
-    .media-body {
-      padding: 20px;
-    }
+    .feature-pill strong { color: var(--text-primary); }
 
-    .tags {
+    .section-title-wrap {
       display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 56px 0 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .category-nav {
+      display: flex;
+      gap: 10px;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
+      margin-bottom: 20px;
     }
 
-    .tag {
-      font-size: 0.7rem;
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--accent-emerald);
-      padding: 4px 8px;
-      border-radius: 4px;
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    .cat-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .cat-btn.active {
+      background: #10b981;
+      color: #052e16;
+      border-color: #10b981;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .subcategory-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 0 24px;
+      margin-bottom: 16px;
+    }
+
+    .subcat-chip {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .subcat-chip:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-secondary);
+    }
+
+    .subcat-chip.active {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: var(--emerald-accent);
+      color: var(--emerald-accent);
+      font-weight: 600;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 24px;
+    }
+
+    .vault-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .vault-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-category-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--emerald-accent);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .card-code {
+      font-family: var(--font-display);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .card-specs {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .spec-label { color: var(--text-muted); }
+    .spec-val { color: var(--text-secondary); font-weight: 600; }
+
+    footer {
+      margin-top: 100px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-primary); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .hero-features { flex-direction: column; }
     }
   </style>
 </head>
 <body>
+  <div class="bg-grid"></div>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
 
-  <header>
-    <div class="brand">
-      <div class="brand-dot"></div>
-      PROJECT X EXPERIENCE
-    </div>
-    <div class="status-pill">
-      <span>●</span> Background Sync Active
-    </div>
-  </header>
+  <div class="app-container">
+    <header>
+      <a href="#" class="brand">
+        <div class="brand-logo">X</div>
+        <div>
+          <span class="brand-title">PROJECT X</span>
+          <span class="brand-badge">Dual-Entity Ecosystem</span>
+        </div>
+      </a>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>Verified Systems Active</span>
+      </div>
+    </header>
 
-  <main>
     <section class="hero">
-      <div class="hero-badge">Discovery Engine Active</div>
-      <h1>Explore Nature Through Verified Intelligence</h1>
-      <p>An autonomous, living ecosystem bridging genuine biological knowledge with cinematic observation.</p>
-    </section>
+      <div class="hero-eyebrow">
+        <span>Executive Master Identity</span>
+        <span>•</span>
+        <span>Hyderabad, India</span>
+      </div>
+      <h1>Commercial Excellence.<br>Ecological Devotion.</h1>
+      <p>
+        The symbiotic synthesis of deterministic autonomous computing and planetary ecological preservation. 
+        Engineered with zero AI slop, verified biological accuracy, and absolute statutory transparency.
+      </p>
 
-    <section class="interactive-section">
-      <div class="card">
-        <h2 style="font-size: 1.3rem; margin-bottom: 8px;">Interactive Knowledge Agent</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Ask a question or enter a species to explore the verified knowledge graph:</p>
-        <div class="search-box">
-          <input type="text" id="knowledgeInput" placeholder="Try: Living Root Bridges, Ficus elastica, or Monsoon Wildlife..." value="Living Root Bridges of Meghalaya">
-          <button class="primary-btn" onclick="runKnowledgeQuery()">Synthesize</button>
+      <div class="hero-features">
+        <div class="feature-pill">
+          <span>🏛️</span>
+          <span>Entity Alpha: <strong>Private Limited SaaS</strong></span>
         </div>
-
-        <div id="resultBox" class="query-result active">
-          <div style="font-size: 0.75rem; color: var(--accent-emerald); margin-bottom: 6px; font-weight: 600;">CANONICAL KNOWLEDGE • VERIFIED EVIDENCE</div>
-          <h3 id="resultTitle" style="font-size: 1.1rem; margin-bottom: 8px;">Living Root Bridges (Jingkieng Jri)</h3>
-          <p id="resultText" style="color: var(--text-muted); font-size: 0.9rem;">
-            Biological aerial root architecture developed using living Ficus elastica trees across Khasi and Jaintia Hills. They demonstrate functional biomimicry and intergenerational engineering, growing stronger over centuries rather than decaying.
-          </p>
+        <div class="feature-pill">
+          <span>🌿</span>
+          <span>Entity Gamma: <strong>Section 8 Wildlife Foundation</strong></span>
+        </div>
+        <div class="feature-pill">
+          <span>⚡</span>
+          <span>Operating Invariant: <strong>Deterministic Certainty</strong></span>
         </div>
       </div>
     </section>
 
-    <section class="interactive-section">
-      <h2 style="font-size: 1.3rem; margin-bottom: 16px;">Curated Media & Story Vault</h2>
-      <div class="media-grid">
-        <div class="media-item">
-          <div class="media-preview">
-            <span style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">🎬 Cinematic Mystery Teaser (50s)</span>
-          </div>
-          <div class="media-body">
-            <h4 style="font-size: 1rem; margin-bottom: 6px;">Something is Coming</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Atmospheric 9:16 vertical experience showcasing the untouched scale of ancient canopies and wild torrents.</p>
-            <div class="tags">
-              <span class="tag">#Cinematic</span>
-              <span class="tag">#Shorts</span>
-              <span class="tag">#Earth</span>
-              <span class="tag">#Mystery</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="media-item">
-          <div class="media-preview">
-            <span style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">🌿 Bio-Engineering Feature</span>
-          </div>
-          <div class="media-body">
-            <h4 style="font-size: 1rem; margin-bottom: 6px;">Meghalaya Root Architecture</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Granular study of botanical hydraulics, soil preservation, and Khasi conservation traditions.</p>
-            <div class="tags">
-              <span class="tag">#Biomimicry</span>
-              <span class="tag">#Botany</span>
-              <span class="tag">#Ecology</span>
-            </div>
-          </div>
+    <section>
+      <div class="section-title-wrap">
+        <div>
+          <h2 class="section-title">Verified Knowledge & Operational Vault</h2>
+          <p class="section-subtitle">Structured taxonomy spanning wildlife biology, advanced computing, governance charters, and executive roadmaps.</p>
         </div>
       </div>
+
+      <div class="category-nav">
+        <button class="cat-btn active" onclick="selectCategory('all', this)">
+          <span>✦</span> All Disciplines
+        </button>
+        <button class="cat-btn" onclick="selectCategory('nature', this)">
+          <span>🌿</span> 01. Living Nature & Wildlife
+        </button>
+        <button class="cat-btn" onclick="selectCategory('tech', this)">
+          <span>⚡</span> 02. Deterministic AI & Tech
+        </button>
+        <button class="cat-btn" onclick="selectCategory('governance', this)">
+          <span>🏛️</span> 03. Section 8 & Governance
+        </button>
+        <button class="cat-btn" onclick="selectCategory('story', this)">
+          <span>📖</span> 04. Mission & Founder Cadence
+        </button>
+      </div>
+
+      <div class="subcategory-bar" id="subcategory-container"></div>
+      <div class="cards-grid" id="cards-container"></div>
     </section>
-  </main>
+
+    <footer>
+      <div>
+        <span>© 2026 Project X. All rights reserved. Registered Dual-Entity in Hyderabad, Telangana, India.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#charter">Section 8 Charter</a>
+        <a href="#ip">Deterministic IP</a>
+        <a href="#80g">80G Tax Deductibility</a>
+        <a href="#privacy">Zero-Data-Loss Architecture</a>
+      </div>
+    </footer>
+  </div>
 
   <script>
-    function runKnowledgeQuery() {
-      const input = document.getElementById('knowledgeInput').value;
-      const title = document.getElementById('resultTitle');
-      const text = document.getElementById('resultText');
-      const box = document.getElementById('resultBox');
+    const VAULT_DATA = [
+      {
+        id: "NAT-01",
+        category: "nature",
+        subcategory: "Biomimicry & Species",
+        title: "Meghalaya Living Root Bridges (Jingkieng Jri)",
+        desc: "Granular botanical hydraulics and living structural engineering using aerial roots of Ficus elastica trained over bamboo frames across centuries in the Khasi and Jaintia Hills.",
+        tag: "Botanical Engineering",
+        specs: [
+          { label: "Biological Subject", val: "Ficus elastica" },
+          { label: "Engineering Feature", val: "Self-Strengthening Tension" },
+          { label: "Cultural Custodians", val: "Khasi & Jaintia Tribes" }
+        ]
+      },
+      {
+        id: "NAT-02",
+        category: "nature",
+        subcategory: "Emergency Veterinary",
+        title: "Golden Hour Wildlife & Stray Rescue Telemetry",
+        desc: "Field veterinary trauma algorithms, portable oxygen saturation monitoring for avian shock, and blood gas analysis protocols during the decisive first 30 minutes of trauma recovery.",
+        tag: "ICU Telemetry",
+        specs: [
+          { label: "Critical Window", val: "First 30 Minutes" },
+          { label: "Target Scope", val: "Street Fauna & Urban Avian" },
+          { label: "Diagnostic Protocol", val: "Blood Gas & Spinal Triage" }
+        ]
+      },
+      {
+        id: "NAT-03",
+        category: "nature",
+        subcategory: "Species Marvels",
+        title: "Raptor Nocturnal Navigation vs Vector Geometry",
+        desc: "Comparative analysis of nocturnal raptor foveal mechanics, biological polarized light perception, and why natural predator telemetry outperforms stochastic computer vision.",
+        tag: "Apex Ecology",
+        specs: [
+          { label: "Aesthetic Benchmark", val: "National Geographic 4K" },
+          { label: "Visual Invariant", val: "Zero AI Slop Realism" },
+          { label: "Core Principle", val: "Anatomical Accuracy" }
+        ]
+      },
+      {
+        id: "TEC-01",
+        category: "tech",
+        subcategory: "Deterministic AI",
+        title: "Rule-Based Deterministic Interception Engine",
+        desc: "State machine architecture enforcing strict business and safety rules before any probabilistic model execution. Prevents hallucination, model drift, and unverified outputs.",
+        tag: "Core Engineering",
+        specs: [
+          { label: "Engine Type", val: "Deterministic State DAG" },
+          { label: "Permission Policy", val: "RBAC Staff Inheritance" },
+          { label: "Safety Standard", val: "Zero-Assumption Execution" }
+        ]
+      },
+      {
+        id: "TEC-02",
+        category: "tech",
+        subcategory: "Knowledge Factory",
+        title: "Multi-Tier Vector Isolation & Tenant Boundary",
+        desc: "Strict Home/Tenant isolation implemented directly at the data-access layer. Vector similarity is never treated as an authorization mechanism, ensuring absolute zero data leakage.",
+        tag: "Data Security",
+        specs: [
+          { label: "Indexing Tech", val: "PostgreSQL pgvector / HNSW" },
+          { label: "Isolation Layer", val: "Mandatory Boundary Filter" },
+          { label: "Audit Trail", val: "Permanent Write Ledger" }
+        ]
+      },
+      {
+        id: "TEC-03",
+        category: "tech",
+        subcategory: "Ecological Computing",
+        title: "Carbon-Aware Cloud Scheduling & Edge Telemetry",
+        desc: "Self-throttling background workers synchronized with regional clean energy availability. Measures compute carbon cost against botanical absorption equivalents.",
+        tag: "Green Computing",
+        specs: [
+          { label: "Target Profile", val: "Zero-Water Data Centers" },
+          { label: "Scheduling", val: "Solar-Peak Workload Shifts" },
+          { label: "Telemetry Focus", val: "Real-time Watt/Prompt" }
+        ]
+      },
+      {
+        id: "GOV-01",
+        category: "governance",
+        subcategory: "Section 8 Charter",
+        title: "Non-Profit Foundation Objects & Capital Shield",
+        desc: "Section 8(1) non-distribution covenants legally guaranteeing that 100% of Foundation surplus is dedicated to animal emergency hospitals, mobile rescue ambulances, and conservation.",
+        tag: "Public Trust",
+        specs: [
+          { label: "Statutory Form", val: "Section 8 Non-Profit Co." },
+          { label: "Surplus Reinvestment", val: "100% Mandatory" },
+          { label: "Founding Seat", val: "Hyderabad, Telangana" }
+        ]
+      },
+      {
+        id: "GOV-02",
+        category: "governance",
+        subcategory: "Tax Geometry",
+        title: "Section 80G Tax Exemption & CSR-1 Compliance",
+        desc: "Mathematical transparent donation ledger enabling direct tax-deductibility for individual donors and institutional CSR-1 grant absorption with verifiable tracking.",
+        tag: "Financial Engineering",
+        specs: [
+          { label: "Tax Benefit", val: "50% Income Exemption (80G)" },
+          { label: "Compliance Gate", val: "CSR-1 Registered" },
+          { label: "Accounting Rule", val: "Arm's-Length Section 92" }
+        ]
+      },
+      {
+        id: "GOV-03",
+        category: "governance",
+        subcategory: "Audit Ledgers",
+        title: "Continuous Anti-Drift Audit & Hygiene Protocol",
+        desc: "Automated persistent watchers scanning all storage trees and task pipelines to ensure zero orphaned files, no duplicate tasks, and permanent historical asset provenance.",
+        tag: "Living Governance",
+        specs: [
+          { label: "Scan Interval", val: "Autonomous Background" },
+          { label: "Destruction Policy", val: "Zero Silent Destruction" },
+          { label: "Directory Standard", val: "PROJECT_X_MASTER" }
+        ]
+      },
+      {
+        id: "MIS-01",
+        category: "story",
+        subcategory: "Editorial Cadence",
+        title: "The 6 Days World / 1 Day Project X Rule",
+        desc: "Rigorous editorial framework: 6 days celebrating nature, species intelligence, and science. Exactly 1 day (Sunday) dedicated to Project X stories, tech milestones, and team impact.",
+        tag: "Content Strategy",
+        specs: [
+          { label: "Monday–Saturday", val: "Nature, Animals, Science" },
+          { label: "Sunday Only", val: "Project X Origin & Impact" },
+          { label: "Production Benchmark", val: "Spielberg / Apple Keynote" }
+        ]
+      },
+      {
+        id: "MIS-02",
+        category: "story",
+        subcategory: "Founder Genesis",
+        title: "From Software Founder to Wildlife Hospital",
+        desc: "The founding story of Ken in Hyderabad: utilizing the scale of enterprise venture software to solve the acute underfunding of animal healthcare and living ecosystem preservation.",
+        tag: "Master Origin",
+        specs: [
+          { label: "Founder", val: "Ken" },
+          { label: "Origin City", val: "Hyderabad, India" },
+          { label: "Core Vision", val: "Dual-Entity Symbiosis" }
+        ]
+      },
+      {
+        id: "MIS-03",
+        category: "story",
+        subcategory: "Audio & Visual Standard",
+        title: "Atmospheric Sound Design & Zero AI Slop",
+        desc: "Cinematic audio guidelines combining natural rainforest soundscapes, restrained silence, and distant atmospheric ancestral vocal textures designed to evoke scale and wonder.",
+        tag: "Aesthetic Standard",
+        specs: [
+          { label: "Color Palette", val: "Obsidian, Slate, Emerald" },
+          { label: "Video Lock", val: "9:16 @ 60fps Vertical Master" },
+          { label: "Audio Texture", val: "Subtle Ancestral Vocal Layer" }
+        ]
+      }
+    ];
 
-      title.innerText = input;
-      text.innerText = "Processing verified evidence claims for \"" + input + "\" across canonical knowledge sources. Synthesizing biological facts, habitat dynamics, and ecological principles...";
-      box.classList.add('active');
+    let currentCategory = 'all';
+    let currentSubcategory = 'all';
+
+    const subcategoriesMap = {
+      all: ["All Facets"],
+      nature: ["All Facets", "Biomimicry & Species", "Emergency Veterinary", "Species Marvels"],
+      tech: ["All Facets", "Deterministic AI", "Knowledge Factory", "Ecological Computing"],
+      governance: ["All Facets", "Section 8 Charter", "Tax Geometry", "Audit Ledgers"],
+      story: ["All Facets", "Editorial Cadence", "Founder Genesis", "Audio & Visual Standard"]
+    };
+
+    function selectCategory(cat, btnElem) {
+      currentCategory = cat;
+      currentSubcategory = 'all';
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElem) btnElem.classList.add('active');
+      renderSubcategories();
+      renderCards();
     }
+
+    function selectSubcategory(subcat, chipElem) {
+      currentSubcategory = subcat;
+      document.querySelectorAll('.subcat-chip').forEach(chip => chip.classList.remove('active'));
+      if (chipElem) chipElem.classList.add('active');
+      renderCards();
+    }
+
+    function renderSubcategories() {
+      const container = document.getElementById('subcategory-container');
+      const list = subcategoriesMap[currentCategory] || ["All Facets"];
+
+      container.innerHTML = list.map(sub => `
+        <button class="subcat-chip ${sub === 'All Facets' ? 'active' : ''}" 
+                onclick="selectSubcategory('${sub === 'All Facets' ? 'all' : sub}', this)">
+          ${sub}
+        </button>
+      `).join('');
+    }
+
+    function renderCards() {
+      const container = document.getElementById('cards-container');
+      const filtered = VAULT_DATA.filter(item => {
+        const matchesCat = currentCategory === 'all' || item.category === currentCategory;
+        const matchesSub = currentSubcategory === 'all' || item.subcategory === currentSubcategory;
+        return matchesCat && matchesSub;
+      });
+
+      container.innerHTML = filtered.map(item => `
+        <div class="vault-card">
+          <div>
+            <div class="card-meta">
+              <span class="card-category-tag">${item.tag}</span>
+              <span class="card-code">${item.id}</span>
+            </div>
+            <h3 class="card-title">${item.title}</h3>
+            <p class="card-desc">${item.desc}</p>
+          </div>
+          <div class="card-specs">
+            ${item.specs.map(spec => `
+              <div class="spec-item">
+                <span class="spec-label">${spec.label}</span>
+                <span class="spec-val">${spec.val}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    selectCategory('all', document.querySelector('.cat-btn.active'));
   </script>
 </body>
 </html>
