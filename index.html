@@ -1,732 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PROJECT X — Dual-Entity Ecosystem & Intelligence</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT X — Software for Humans, Animals & Living Nature</title>
+  <!-- Google Fonts: Editorial Serif & Precision Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            canvas: '#FBFBF9',
+            surface: {
+              DEFAULT: '#FFFFFF',
+              secondary: '#F5F4F0',
+            },
+            border: {
+              subtle: '#EAE8E1',
+              focus: '#2D5A43',
+            },
+            ink: {
+              primary: '#191C1A',
+              muted: '#5E655F',
+              subtle: '#8C948E',
+            },
+            nature: {
+              DEFAULT: '#2D5A43',
+              hover: '#244835',
+              soft: '#EDF4EE',
+              water: '#DDF0F5',
+            }
+          },
+          boxShadow: {
+            subtle: '0 1px 2px rgba(25, 28, 26, 0.04)',
+            elevated: '0 4px 16px -2px rgba(25, 28, 26, 0.05)',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg-base: #07090e;
-      --bg-surface: #0e131f;
-      --bg-card: rgba(18, 24, 38, 0.7);
-      --bg-card-hover: rgba(26, 35, 54, 0.85);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(16, 185, 129, 0.35);
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --emerald-glow: rgba(16, 185, 129, 0.15);
-      --emerald-accent: #10b981;
-      --emerald-dark: #065f46;
-      --sapphire-accent: #3b82f6;
-      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Space Grotesk', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      background-color: var(--bg-base);
-      color: var(--text-primary);
-      font-family: var(--font-main);
-      line-height: 1.6;
+      background-color: #FBFBF9;
+      color: #191C1A;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
     }
-
-    .bg-grid {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .ambient-glow {
-      position: fixed;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      filter: blur(140px);
-      opacity: 0.22;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .glow-1 { top: -100px; left: 10%; background: var(--emerald-accent); }
-    .glow-2 { top: 40%; right: -150px; background: var(--sapphire-accent); }
-
-    .app-container {
-      position: relative;
-      z-index: 1;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-    }
-
-    .brand-logo {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #10b981 0%, #064e3b 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: #fff;
-      font-size: 18px;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
-    }
-
-    .brand-title {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: 0.04em;
-    }
-
-    .brand-badge {
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-subtle);
-      margin-left: 8px;
-    }
-
-    .status-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #10b981;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 6px 14px;
-      border-radius: 9999px;
-    }
-
-    .status-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background-color: #10b981;
-      box-shadow: 0 0 8px #10b981;
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    .hero {
-      padding: 72px 0 48px;
-      text-align: center;
-      max-width: 920px;
-      margin: 0 auto;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--emerald-accent);
-      background: rgba(16, 185, 129, 0.08);
-      padding: 6px 16px;
-      border-radius: 9999px;
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: 52px;
-      line-height: 1.15;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 20px;
-      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 36px;
-    }
-
-    .hero-features {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .feature-pill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 18px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    .feature-pill strong { color: var(--text-primary); }
-
-    .section-title-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin: 56px 0 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .section-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .category-nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .cat-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-      padding: 10px 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .cat-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-primary);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .cat-btn.active {
-      background: #10b981;
-      color: #052e16;
-      border-color: #10b981;
-      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-    }
-
-    .subcategory-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 10px 0 24px;
-      margin-bottom: 16px;
-    }
-
-    .subcat-chip {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-muted);
-      padding: 6px 14px;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .subcat-chip:hover {
-      border-color: var(--text-secondary);
-      color: var(--text-secondary);
-    }
-
-    .subcat-chip.active {
-      background: rgba(16, 185, 129, 0.12);
-      border-color: var(--emerald-accent);
-      color: var(--emerald-accent);
-      font-weight: 600;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 24px;
-    }
-
-    .vault-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 28px;
-      backdrop-filter: blur(12px);
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .vault-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-    }
-
-    .card-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .card-category-tag {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--emerald-accent);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-    }
-
-    .card-code {
-      font-family: var(--font-display);
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-    }
-
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 21px;
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-    }
-
-    .card-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 20px;
-      flex-grow: 1;
-    }
-
-    .card-specs {
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .spec-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-    }
-
-    .spec-label { color: var(--text-muted); }
-    .spec-val { color: var(--text-secondary); font-weight: 600; }
-
-    footer {
-      margin-top: 100px;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--text-primary); }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 36px; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .hero-features { flex-direction: column; }
+    .touch-target {
+      min-height: 48px;
     }
   </style>
 </head>
-<body>
-  <div class="bg-grid"></div>
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
+<body class="selection:bg-nature selection:text-white antialiased">
 
-  <div class="app-container">
-    <header>
-      <a href="#" class="brand">
-        <div class="brand-logo">X</div>
-        <div>
-          <span class="brand-title">PROJECT X</span>
-          <span class="brand-badge">Dual-Entity Ecosystem</span>
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md border-b border-border-subtle">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Crest -->
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="w-8 h-8 rounded-full border border-border-subtle bg-surface flex items-center justify-center text-xs tracking-widest font-semibold text-ink-primary group-hover:border-nature transition">
+          X
+        </div>
+        <div class="flex flex-col">
+          <span class="tracking-[0.25em] text-xs uppercase font-medium text-ink-primary">PROJECT X</span>
+          <span class="text-[9px] text-nature font-medium tracking-wider">LIVING ECOSYSTEM SOFTWARE</span>
         </div>
       </a>
-      <div class="status-pill">
-        <span class="status-dot"></span>
-        <span>Verified Systems Active</span>
-      </div>
-    </header>
 
-    <section class="hero">
-      <div class="hero-eyebrow">
-        <span>Executive Master Identity</span>
+      <!-- Center Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest text-ink-muted">
+        <a href="#ecosystem" class="hover:text-ink-primary transition">Living Ecosystem</a>
+        <a href="#services" class="hover:text-ink-primary transition">17+ Services</a>
+        <a href="#section8" class="hover:text-nature transition">Wildlife Sanctuary (80G)</a>
+        <a href="/admin" class="hover:text-ink-primary transition">Command Cockpit</a>
+      </nav>
+
+      <!-- Right Action Trigger -->
+      <div class="flex items-center space-x-4">
+        <a href="/auth" class="touch-target px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-semibold bg-nature text-white hover:bg-nature-hover transition shadow-subtle flex items-center space-x-2">
+          <span>Sign In</span>
+        </a>
+        <button onclick="toggleSideSlider()" class="touch-target p-2 rounded-xl text-ink-muted hover:text-ink-primary bg-surface border border-border-subtle flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-36 pb-20 px-6 max-w-7xl mx-auto text-center md:pt-48 md:pb-28">
+    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-nature-soft border border-nature/20 text-xs tracking-widest uppercase mb-8 text-nature font-medium">
+      <span class="w-2 h-2 rounded-full bg-nature animate-pulse"></span>
+      <span>Nature & Animals Handled Through Software</span>
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-light font-serif tracking-tight text-ink-primary leading-[1.15] max-w-4xl mx-auto mb-8">
+      Everything we do for the human, for their <span class="italic font-normal text-nature">animals</span>, and their <span class="italic font-normal text-nature">plants</span>.
+    </h1>
+
+    <p class="text-base sm:text-lg text-ink-muted font-light max-w-2xl mx-auto leading-relaxed mb-12">
+      Project X is a premium software company engineering the living bridge between technology and nature. From pet healthcare records and garden growth timelines to 24/7 wildlife rescue infrastructure.
+    </p>
+
+    <!-- Universal Search Bar -->
+    <div class="max-w-2xl mx-auto mb-16 relative">
+      <div class="bg-surface rounded-2xl p-2 flex items-center border border-border-subtle focus-within:border-border-focus transition shadow-elevated">
+        <span class="pl-4 pr-3 text-ink-subtle">🔍</span>
+        <input type="text" id="universal-search" placeholder="Search species, pet health tips, botanical guides, 17+ services, or rescue drives..." class="w-full bg-transparent text-xs text-ink-primary placeholder:text-ink-subtle focus:outline-none py-3" />
+        <button onclick="handleSearch()" class="touch-target px-6 py-2.5 rounded-xl bg-nature text-white font-semibold text-xs uppercase tracking-widest hover:bg-nature-hover transition">
+          Discover
+        </button>
+      </div>
+      <div class="flex items-center justify-center space-x-4 mt-3 text-[10px] text-ink-subtle uppercase tracking-widest">
+        <span>Try: "Golden Retriever Diet"</span>
         <span>•</span>
-        <span>Hyderabad, India</span>
+        <span>"Monstera Leaf Care"</span>
+        <span>•</span>
+        <span>"Reef Salinity"</span>
       </div>
-      <h1>Commercial Excellence.<br>Ecological Devotion.</h1>
-      <p>
-        The symbiotic synthesis of deterministic autonomous computing and planetary ecological preservation. 
-        Engineered with zero AI slop, verified biological accuracy, and absolute statutory transparency.
+    </div>
+  </section>
+
+  <!-- Living Ecosystem Interactive Showcase -->
+  <section id="ecosystem" class="max-w-7xl mx-auto px-6 py-16 border-t border-border-subtle">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-xs uppercase tracking-[0.3em] text-nature font-semibold block mb-3">Your Sovereign Living Ecosystem</span>
+      <h2 class="text-3xl sm:text-4xl font-serif text-ink-primary font-light">Add Your Pets, Gardens & Aquariums</h2>
+      <p class="text-xs text-ink-muted font-light mt-3 leading-relaxed">
+        Upload photos and medical files. Project X AI builds their personalized timeline, monitors health checkups, and provides verified care tips with strict CSD-031 Home isolation.
       </p>
+    </div>
 
-      <div class="hero-features">
-        <div class="feature-pill">
-          <span>🏛️</span>
-          <span>Entity Alpha: <strong>Private Limited SaaS</strong></span>
-        </div>
-        <div class="feature-pill">
-          <span>🌿</span>
-          <span>Entity Gamma: <strong>Section 8 Wildlife Foundation</strong></span>
-        </div>
-        <div class="feature-pill">
-          <span>⚡</span>
-          <span>Operating Invariant: <strong>Deterministic Certainty</strong></span>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-title-wrap">
-        <div>
-          <h2 class="section-title">Verified Knowledge & Operational Vault</h2>
-          <p class="section-subtitle">Structured taxonomy spanning wildlife biology, advanced computing, governance charters, and executive roadmaps.</p>
-        </div>
-      </div>
-
-      <div class="category-nav">
-        <button class="cat-btn active" onclick="selectCategory('all', this)">
-          <span>✦</span> All Disciplines
-        </button>
-        <button class="cat-btn" onclick="selectCategory('nature', this)">
-          <span>🌿</span> 01. Living Nature & Wildlife
-        </button>
-        <button class="cat-btn" onclick="selectCategory('tech', this)">
-          <span>⚡</span> 02. Deterministic AI & Tech
-        </button>
-        <button class="cat-btn" onclick="selectCategory('governance', this)">
-          <span>🏛️</span> 03. Section 8 & Governance
-        </button>
-        <button class="cat-btn" onclick="selectCategory('story', this)">
-          <span>📖</span> 04. Mission & Founder Cadence
-        </button>
-      </div>
-
-      <div class="subcategory-bar" id="subcategory-container"></div>
-      <div class="cards-grid" id="cards-container"></div>
-    </section>
-
-    <footer>
-      <div>
-        <span>© 2026 Project X. All rights reserved. Registered Dual-Entity in Hyderabad, Telangana, India.</span>
-      </div>
-      <div class="footer-links">
-        <a href="#charter">Section 8 Charter</a>
-        <a href="#ip">Deterministic IP</a>
-        <a href="#80g">80G Tax Deductibility</a>
-        <a href="#privacy">Zero-Data-Loss Architecture</a>
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    const VAULT_DATA = [
-      {
-        id: "NAT-01",
-        category: "nature",
-        subcategory: "Biomimicry & Species",
-        title: "Meghalaya Living Root Bridges (Jingkieng Jri)",
-        desc: "Granular botanical hydraulics and living structural engineering using aerial roots of Ficus elastica trained over bamboo frames across centuries in the Khasi and Jaintia Hills.",
-        tag: "Botanical Engineering",
-        specs: [
-          { label: "Biological Subject", val: "Ficus elastica" },
-          { label: "Engineering Feature", val: "Self-Strengthening Tension" },
-          { label: "Cultural Custodians", val: "Khasi & Jaintia Tribes" }
-        ]
-      },
-      {
-        id: "NAT-02",
-        category: "nature",
-        subcategory: "Emergency Veterinary",
-        title: "Golden Hour Wildlife & Stray Rescue Telemetry",
-        desc: "Field veterinary trauma algorithms, portable oxygen saturation monitoring for avian shock, and blood gas analysis protocols during the decisive first 30 minutes of trauma recovery.",
-        tag: "ICU Telemetry",
-        specs: [
-          { label: "Critical Window", val: "First 30 Minutes" },
-          { label: "Target Scope", val: "Street Fauna & Urban Avian" },
-          { label: "Diagnostic Protocol", val: "Blood Gas & Spinal Triage" }
-        ]
-      },
-      {
-        id: "NAT-03",
-        category: "nature",
-        subcategory: "Species Marvels",
-        title: "Raptor Nocturnal Navigation vs Vector Geometry",
-        desc: "Comparative analysis of nocturnal raptor foveal mechanics, biological polarized light perception, and why natural predator telemetry outperforms stochastic computer vision.",
-        tag: "Apex Ecology",
-        specs: [
-          { label: "Aesthetic Benchmark", val: "National Geographic 4K" },
-          { label: "Visual Invariant", val: "Zero AI Slop Realism" },
-          { label: "Core Principle", val: "Anatomical Accuracy" }
-        ]
-      },
-      {
-        id: "TEC-01",
-        category: "tech",
-        subcategory: "Deterministic AI",
-        title: "Rule-Based Deterministic Interception Engine",
-        desc: "State machine architecture enforcing strict business and safety rules before any probabilistic model execution. Prevents hallucination, model drift, and unverified outputs.",
-        tag: "Core Engineering",
-        specs: [
-          { label: "Engine Type", val: "Deterministic State DAG" },
-          { label: "Permission Policy", val: "RBAC Staff Inheritance" },
-          { label: "Safety Standard", val: "Zero-Assumption Execution" }
-        ]
-      },
-      {
-        id: "TEC-02",
-        category: "tech",
-        subcategory: "Knowledge Factory",
-        title: "Multi-Tier Vector Isolation & Tenant Boundary",
-        desc: "Strict Home/Tenant isolation implemented directly at the data-access layer. Vector similarity is never treated as an authorization mechanism, ensuring absolute zero data leakage.",
-        tag: "Data Security",
-        specs: [
-          { label: "Indexing Tech", val: "PostgreSQL pgvector / HNSW" },
-          { label: "Isolation Layer", val: "Mandatory Boundary Filter" },
-          { label: "Audit Trail", val: "Permanent Write Ledger" }
-        ]
-      },
-      {
-        id: "TEC-03",
-        category: "tech",
-        subcategory: "Ecological Computing",
-        title: "Carbon-Aware Cloud Scheduling & Edge Telemetry",
-        desc: "Self-throttling background workers synchronized with regional clean energy availability. Measures compute carbon cost against botanical absorption equivalents.",
-        tag: "Green Computing",
-        specs: [
-          { label: "Target Profile", val: "Zero-Water Data Centers" },
-          { label: "Scheduling", val: "Solar-Peak Workload Shifts" },
-          { label: "Telemetry Focus", val: "Real-time Watt/Prompt" }
-        ]
-      },
-      {
-        id: "GOV-01",
-        category: "governance",
-        subcategory: "Section 8 Charter",
-        title: "Non-Profit Foundation Objects & Capital Shield",
-        desc: "Section 8(1) non-distribution covenants legally guaranteeing that 100% of Foundation surplus is dedicated to animal emergency hospitals, mobile rescue ambulances, and conservation.",
-        tag: "Public Trust",
-        specs: [
-          { label: "Statutory Form", val: "Section 8 Non-Profit Co." },
-          { label: "Surplus Reinvestment", val: "100% Mandatory" },
-          { label: "Founding Seat", val: "Hyderabad, Telangana" }
-        ]
-      },
-      {
-        id: "GOV-02",
-        category: "governance",
-        subcategory: "Tax Geometry",
-        title: "Section 80G Tax Exemption & CSR-1 Compliance",
-        desc: "Mathematical transparent donation ledger enabling direct tax-deductibility for individual donors and institutional CSR-1 grant absorption with verifiable tracking.",
-        tag: "Financial Engineering",
-        specs: [
-          { label: "Tax Benefit", val: "50% Income Exemption (80G)" },
-          { label: "Compliance Gate", val: "CSR-1 Registered" },
-          { label: "Accounting Rule", val: "Arm's-Length Section 92" }
-        ]
-      },
-      {
-        id: "GOV-03",
-        category: "governance",
-        subcategory: "Audit Ledgers",
-        title: "Continuous Anti-Drift Audit & Hygiene Protocol",
-        desc: "Automated persistent watchers scanning all storage trees and task pipelines to ensure zero orphaned files, no duplicate tasks, and permanent historical asset provenance.",
-        tag: "Living Governance",
-        specs: [
-          { label: "Scan Interval", val: "Autonomous Background" },
-          { label: "Destruction Policy", val: "Zero Silent Destruction" },
-          { label: "Directory Standard", val: "PROJECT_X_MASTER" }
-        ]
-      },
-      {
-        id: "MIS-01",
-        category: "story",
-        subcategory: "Editorial Cadence",
-        title: "The 6 Days World / 1 Day Project X Rule",
-        desc: "Rigorous editorial framework: 6 days celebrating nature, species intelligence, and science. Exactly 1 day (Sunday) dedicated to Project X stories, tech milestones, and team impact.",
-        tag: "Content Strategy",
-        specs: [
-          { label: "Monday–Saturday", val: "Nature, Animals, Science" },
-          { label: "Sunday Only", val: "Project X Origin & Impact" },
-          { label: "Production Benchmark", val: "Spielberg / Apple Keynote" }
-        ]
-      },
-      {
-        id: "MIS-02",
-        category: "story",
-        subcategory: "Founder Genesis",
-        title: "From Software Founder to Wildlife Hospital",
-        desc: "The founding story of Ken in Hyderabad: utilizing the scale of enterprise venture software to solve the acute underfunding of animal healthcare and living ecosystem preservation.",
-        tag: "Master Origin",
-        specs: [
-          { label: "Founder", val: "Ken" },
-          { label: "Origin City", val: "Hyderabad, India" },
-          { label: "Core Vision", val: "Dual-Entity Symbiosis" }
-        ]
-      },
-      {
-        id: "MIS-03",
-        category: "story",
-        subcategory: "Audio & Visual Standard",
-        title: "Atmospheric Sound Design & Zero AI Slop",
-        desc: "Cinematic audio guidelines combining natural rainforest soundscapes, restrained silence, and distant atmospheric ancestral vocal textures designed to evoke scale and wonder.",
-        tag: "Aesthetic Standard",
-        specs: [
-          { label: "Color Palette", val: "Obsidian, Slate, Emerald" },
-          { label: "Video Lock", val: "9:16 @ 60fps Vertical Master" },
-          { label: "Audio Texture", val: "Subtle Ancestral Vocal Layer" }
-        ]
-      }
-    ];
-
-    let currentCategory = 'all';
-    let currentSubcategory = 'all';
-
-    const subcategoriesMap = {
-      all: ["All Facets"],
-      nature: ["All Facets", "Biomimicry & Species", "Emergency Veterinary", "Species Marvels"],
-      tech: ["All Facets", "Deterministic AI", "Knowledge Factory", "Ecological Computing"],
-      governance: ["All Facets", "Section 8 Charter", "Tax Geometry", "Audit Ledgers"],
-      story: ["All Facets", "Editorial Cadence", "Founder Genesis", "Audio & Visual Standard"]
-    };
-
-    function selectCategory(cat, btnElem) {
-      currentCategory = cat;
-      currentSubcategory = 'all';
-      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-      if (btnElem) btnElem.classList.add('active');
-      renderSubcategories();
-      renderCards();
-    }
-
-    function selectSubcategory(subcat, chipElem) {
-      currentSubcategory = subcat;
-      document.querySelectorAll('.subcat-chip').forEach(chip => chip.classList.remove('active'));
-      if (chipElem) chipElem.classList.add('active');
-      renderCards();
-    }
-
-    function renderSubcategories() {
-      const container = document.getElementById('subcategory-container');
-      const list = subcategoriesMap[currentCategory] || ["All Facets"];
-
-      container.innerHTML = list.map(sub => `
-        <button class="subcat-chip ${sub === 'All Facets' ? 'active' : ''}" 
-                onclick="selectSubcategory('${sub === 'All Facets' ? 'all' : sub}', this)">
-          ${sub}
-        </button>
-      `).join('');
-    }
-
-    function renderCards() {
-      const container = document.getElementById('cards-container');
-      const filtered = VAULT_DATA.filter(item => {
-        const matchesCat = currentCategory === 'all' || item.category === currentCategory;
-        const matchesSub = currentSubcategory === 'all' || item.subcategory === currentSubcategory;
-        return matchesCat && matchesSub;
-      });
-
-      container.innerHTML = filtered.map(item => `
-        <div class="vault-card">
-          <div>
-            <div class="card-meta">
-              <span class="card-category-tag">${item.tag}</span>
-              <span class="card-code">${item.id}</span>
-            </div>
-            <h3 class="card-title">${item.title}</h3>
-            <p class="card-desc">${item.desc}</p>
-          </div>
-          <div class="card-specs">
-            ${item.specs.map(spec => `
-              <div class="spec-item">
-                <span class="spec-label">${spec.label}</span>
-                <span class="spec-val">${spec.val}</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    selectCategory('all', document.querySelector('.cat-btn.active'));
-  </script>
-</body>
-</html>
+    <!-- 3 Core Domains Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Domain 1: Pets -->
+      <div class="bg-surface p-8 rounded-3xl border border-border-subtle hover:border-nature/40 transition duration-300 shadow-subtle flex flex-col justify
